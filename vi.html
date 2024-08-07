@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Impact Survey</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        /* Header Styles */
+        .header {
+            text-align: center;
+            background-color: #4a90e2;
+            padding: 20px;
+            border-radius: 8px 8px 0 0;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .header img {
+            width: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        /* Form Styles */
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .question-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f2f6fc;
+        }
+
+        .question-section h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .rating-scale {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+
+        .rating-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 5px;
+        }
+
+        input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        .instructions {
+            color: #777;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+
+        /* Progress Bar Styles */
+        .progress-bar {
+            margin: 20px 0;
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress-bar-inner {
+            height: 100%;
+            background-color: #4a90e2;
+            width: 0;
+            border-radius: 5px;
+            transition: width 0.3s ease;
+        }
+
+        /* Submit Button Styles */
+        .submit-button {
+            background-color: #4a90e2;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 150px;
+            margin: 20px auto;
+            display: block;
+            text-align: center;
+        }
+
+        .submit-button:hover {
+            background-color: #357abd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/3/3a/Generic_user_icon_2.jpg" alt="Survey">
+            <h1>Social Media Impact Survey</h1>
+        </div>
+
+        <!-- Instructions -->
+        <p class="instructions">
+            Please fill out the survey below to help us understand the impact of social media on various aspects of life. Your responses are valuable and will be kept confidential.
+        </p>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-bar-inner" id="progress"></div>
+        </div>
+
+        <!-- Form Section -->
+        <form id="surveyForm" onsubmit="return validateForm()">
+            <!-- Demographics Section -->
+            <div class="question-section">
+                <h3>Demographics</h3>
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" min="10" max="100" required>
+                </div>
+                <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <select id="gender" name="gender" required>
+                        <option value="">Select...</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                        <option value="Prefer not to say">Prefer not to say</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="occupation">Occupation:</label>
+                    <input type="text" id="occupation" name="occupation" required>
+                </div>
+                <div class="form-group">
+                    <label for="education">Education Level:</label>
+                    <select id="education" name="education" required>
+                        <option value="">Select...</option>
+                        <option value="High School">High School</option>
+                        <option value="Undergraduate">Undergraduate</option>
+                        <option value="Postgraduate">Postgraduate</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="timeOnSocialMedia">Time spent on Social Media (hours/day):</label>
+                    <input type="number" id="timeOnSocialMedia" name="timeOnSocialMedia" min="0" max="24" required>
+                </div>
+            </div>
+
+            <!-- Mental Health Impact Section -->
+            <div class="question-section">
+                <h3>Mental Health Impact</h3>
+                <div class="form-group">
+                    <label for="sleepImpact">How much does social media impact your sleep?</label>
+                    <div class="rating-scale">
+                        <label class="rating-label"><input type="radio" name="sleepImpact" value="0" required> 0</label>
+                        <label class="rating-label"><input type="radio" name="sleepImpact" value="1" required> 1</label>
+                        <label class="rating-label"><input type="radio" name="sleepImpact" value="2" required> 2</label>
+                        <label class="rating-label"><input type="radio" name="sleepImpact" value="3" required> 3</label>
+                        <label class="rating-label"><input type="radio" name="sleepImpact" value="4" required> 4</label>
+                        <label class="rating-label"><input type="radio" name="sleepImpact" value="5" required> 5</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="stressImpact">How much does social media impact your stress?</label>
+                    <div class="rating-scale">
+                        <label class="rating-label"><input type="radio" name="stressImpact" value="0" required> 0</label>
+                        <label class="rating-label"><input type="radio" name="stressImpact" value="1" required> 1</label>
+                        <label class="rating-label"><input type="radio" name="stressImpact" value="2" required> 2</label>
+                        <label class="rating-label"><input type="radio" name="stressImpact" value="3" required> 3</label>
+                        <label class="rating-label"><input type="radio" name="stressImpact" value="4" required> 4</label>
+                        <label class="rating-label"><input type="radio" name="stressImpact" value="5" required> 5</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="anxietyImpact">How much does social media impact your anxiety?</label>
+                    <div class="rating-scale">
+                        <label class="rating-label"><input type="radio" name="anxietyImpact" value="0" required> 0</label>
+                        <label class="rating-label"><input type="radio" name="anxietyImpact" value="1" required> 1</label>
+                        <label class="rating-label"><input type="radio" name="anxietyImpact" value="2" required> 2</label>
+                        <label class="rating-label"><input type="radio" name="anxietyImpact" value="3" required> 3</label>
+                        <label class="rating-label"><input type="radio" name="anxietyImpact" value="4" required> 4</label>
+                        <label class="rating-label"><input type="radio" name="anxietyImpact" value="5" required> 5</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="bodyImageImpact">How much does social media impact your body image?</label>
+                    <div class="rating-scale">
+                        <label class="rating-label"><input type="radio" name="bodyImageImpact" value="0" required> 0</label>
+                        <label class="rating-label"><input type="radio" name="bodyImageImpact" value="1" required> 1</label>
+                        <label class="rating-label"><input type="radio" name="bodyImageImpact" value="2" required> 2</label>
+                        <label class="rating-label"><input type="radio" name="bodyImageImpact" value="3" required> 3</label>
+                        <label class="rating-label"><input type="radio" name="bodyImageImpact" value="4" required> 4</label>
+                        <label class="rating-label"><input type="radio" name="bodyImageImpact" value="5" required> 5</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="depressionImpact">How much does social media impact your depression?</label>
+                    <div class="rating-scale">
+                        <label class="rating-label"><input type="radio" name="depressionImpact" value="0" required> 0</label>
+                        <label class="rating-label"><input type="radio" name="depressionImpact" value="1" required> 1</label>
+                        <label class="rating-label"><input type="radio" name="depressionImpact" value="2" required> 2</label>
+                        <label class="rating-label"><input type="radio" name="depressionImpact" value="3" required> 3</label>
+                        <label class="rating-label"><input type="radio" name="depressionImpact" value="4" required> 4</label>
+                        <label class="rating-label"><input type="radio" name="depressionImpact" value="5" required> 5</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="selfEsteemImpact">How much does social media impact your self-esteem?</label>
+                    <div class="rating-scale">
+                        <label class="rating-label"><input type="radio" name="selfEsteemImpact" value="0" required> 0</label>
+                        <label class="rating-label"><input type="radio" name="selfEsteemImpact" value="1" required> 1</label>
+                        <label class="rating-label"><input type="radio" name="selfEsteemImpact" value="2" required> 2</label>
+                        <label class="rating-label"><input type="radio" name="selfEsteemImpact" value="3" required> 3</label>
+                        <label class="rating-label"><input type="radio" name="selfEsteemImpact" value="4" required> 4</label>
+                        <label class="rating-label"><input type="radio" name="selfEsteemImpact" value="5" required> 5</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="fomoImpact">How much does social media impact your FOMO (Fear of Missing Out)?</label>
+                    <div class="rating-scale">
+                        <label class="rating-label"><input type="radio" name="fomoImpact" value="0" required> 0</label>
+                        <label class="rating-label"><input type="radio" name="fomoImpact" value="1" required> 1</label>
+                        <label class="rating-label"><input type="radio" name="fomoImpact" value="2" required> 2</label>
+                        <label class="rating-label"><input type="radio" name="fomoImpact" value="3" required> 3</label>
+                        <label class="rating-label"><input type="radio" name="fomoImpact" value="4" required> 4</label>
+                        <label class="rating-label"><input type="radio" name="fomoImpact" value="5" required> 5</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="bullyingImpact">How much does social media impact your experience with bullying or harassment?</label>
+                    <div class="rating-scale">
+                        <label class="rating-label"><input type="radio" name="bullyingImpact" value="0" required> 0</label>
+                        <label class="rating-label"><input type="radio" name="bullyingImpact" value="1" required> 1</label>
+                        <label class="rating-label"><input type="radio" name="bullyingImpact" value="2" required> 2</label>
+                        <label class="rating-label"><input type="radio" name="bullyingImpact" value="3" required> 3</label>
+                        <label class="rating-label"><input type="radio" name="bullyingImpact" value="4" required> 4</label>
+                        <label class="rating-label"><input type="radio" name="bullyingImpact" value="5" required> 5</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="addictionImpact">How much does social media impact your feelings of addiction?</label>
+                    <div class="rating-scale">
+                        <label class="rating-label"><input type="radio" name="addictionImpact" value="0" required> 0</label>
+                        <label class="rating-label"><input type="radio" name="addictionImpact" value="1" required> 1</label>
+                        <label class="rating-label"><input type="radio" name="addictionImpact" value="2" required> 2</label>
+                        <label class="rating-label"><input type="radio" name="addictionImpact" value="3" required> 3</label>
+                        <label class="rating-label"><input type="radio" name="addictionImpact" value="4" required> 4</label>
+                        <label class="rating-label"><input type="radio" name="addictionImpact" value="5" required> 5</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="isolationImpact">How much does social media impact your feelings of isolation?</label>
+                    <div class="rating-scale">
+                        <label class="rating-label"><input type="radio" name="isolationImpact" value="0" required> 0</label>
+                        <label class="rating-label"><input type="radio" name="isolationImpact" value="1" required> 1</label>
+                        <label class="rating-label"><input type="radio" name="isolationImpact" value="2" required> 2</label>
+                        <label class="rating-label"><input type="radio" name="isolationImpact" value="3" required> 3</label>
+                        <label class="rating-label"><input type="radio" name="isolationImpact" value="4" required> 4</label>
+                        <label class="rating-label"><input type="radio" name="isolationImpact" value="5" required> 5</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="faceTimeImpact">How much does social media impact your face-to-face time with others?</label>
+                    <div class="rating-scale">
+                        <label class="rating-label"><input type="radio" name="faceTimeImpact" value="0" required> 0</label>
+                        <label class="rating-label"><input type="radio" name="faceTimeImpact" value="1" required> 1</label>
+                        <label class="rating-label"><input type="radio" name="faceTimeImpact" value="2" required> 2</label>
+                        <label class="rating-label"><input type="radio" name="faceTimeImpact" value="3" required> 3</label>
+                        <label class="rating-label"><input type="radio" name="faceTimeImpact" value="4" required> 4</label>
+                        <label class="rating-label"><input type="radio" name="faceTimeImpact" value="5" required> 5</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Relationship Impact Section -->
+            <div class="question-section">
+                <h3>Relationship Impact</h3>
+                <div class="form-group">
+                    <label for="relationshipImpact">How much does social media impact your relationships?</label>
+                    <div class="rating-scale">
+                        <label class="rating-label"><input type="radio" name="relationshipImpact" value="0" required> 0</label>
+                        <label class="rating-label"><input type="radio" name="relationshipImpact" value="1" required> 1</label>
+                        <label class="rating-label"><input type="radio" name="relationshipImpact" value="2" required> 2</label>
+                        <label class="rating-label"><input type="radio" name="relationshipImpact" value="3" required> 3</label>
+                        <label class="rating-label"><input type="radio" name="relationshipImpact" value="4" required> 4</label>
+                        <label class="rating-label"><input type="radio" name="relationshipImpact" value="5" required> 5</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="argumentsImpact">How much does social media impact your involvement in arguments?</label>
+                    <div class="rating-scale">
+                        <label class="rating-label"><input type="radio" name="argumentsImpact" value="0" required> 0</label>
+                        <label class="rating-label"><input type="radio" name="argumentsImpact" value="1" required> 1</label>
+                        <label class="rating-label"><input type="radio" name="argumentsImpact" value="2" required> 2</label>
+                        <label class="rating-label"><input type="radio" name="argumentsImpact" value="3" required> 3</label>
+                        <label class="rating-label"><input type="radio" name="argumentsImpact" value="4" required> 4</label>
+                        <label class="rating-label"><input type="radio" name="argumentsImpact" value="5" required> 5</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="neglectImpact">How much does social media impact your feelings of neglect in relationships?</label>
+                    <div class="rating-scale">
+                        <label class="rating-label"><input type="radio" name="neglectImpact" value="0" required> 0</label>
+                        <label class="rating-label"><input type="radio" name="neglectImpact" value="1" required> 1</label>
+                        <label class="rating-label"><input type="radio" name="neglectImpact" value="2" required> 2</label>
+                        <label class="rating-label"><input type="radio" name="neglectImpact" value="3" required> 3</label>
+                        <label class="rating-label"><input type="radio" name="neglectImpact" value="4" required> 4</label>
+                        <label class="rating-label"><input type="radio" name="neglectImpact" value="5" required> 5</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="jealousyImpact">How much does social media impact your feelings of jealousy?</label>
+                    <div class="rating-scale">
+                        <label class="rating-label"><input type="radio" name="jealousyImpact" value="0" required> 0</label>
+                        <label class="rating-label"><input type="radio" name="jealousyImpact" value="1" required> 1</label>
+                        <label class="rating-label"><input type="radio" name="jealousyImpact" value="2" required> 2</label>
+                        <label class="rating-label"><input type="radio" name="jealousyImpact" value="3" required> 3</label>
+                        <label class="rating-label"><input type="radio" name="jealousyImpact" value="4" required> 4</label>
+                        <label class="rating-label"><input type="radio" name="jealousyImpact" value="5" required> 5</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Academic/Professional Impact Section -->
+            <div class="question-section">
+                <h3>Academic/Professional Impact</h3>
+                <div class="form-group">
+                    <label for="academicImpact">How much does social media impact your academic performance?</label>
+                    <div class="rating-scale">
+                        <label class="rating-label"><input type="radio" name="academicImpact" value="0" required> 0</label>
+                        <label class="rating-label"><input type="radio" name="academicImpact" value="1" required> 1</label>
+                        <label class="rating-label"><input type="radio" name="academicImpact" value="2" required> 2</label>
+                        <label class="rating-label"><input type="radio" name="academicImpact" value="3" required> 3</label>
+                        <label class="rating-label"><input type="radio" name="academicImpact" value="4" required> 4</label>
+                        <label class="rating-label"><input type="radio" name="academicImpact" value="5" required> 5</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="concentrationImpact">How much does social media impact your concentration?</label>
+                    <div class="rating-scale">
+                        <label class="rating-label"><input type="radio" name="concentrationImpact" value="0" required> 0</label>
+                        <label class="rating-label"><input type="radio" name="concentrationImpact" value="1" required> 1</label>
+                        <label class="rating-label"><input type="radio" name="concentrationImpact" value="2" required> 2</label>
+                        <label class="rating-label"><input type="radio" name="concentrationImpact" value="3" required> 3</label>
+                        <label class="rating-label"><input type="radio" name="concentrationImpact" value="4" required> 4</label>
+                        <label class="rating-label"><input type="radio" name="concentrationImpact" value="5" required> 5</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="procrastinationImpact">How much does social media impact your procrastination?</label>
+                    <div class="rating-scale">
+                        <label class="rating-label"><input type="radio" name="procrastinationImpact" value="0" required> 0</label>
+                        <label class="rating-label"><input type="radio" name="procrastinationImpact" value="1" required> 1</label>
+                        <label class="rating-label"><input type="radio" name="procrastinationImpact" value="2" required> 2</label>
+                        <label class="rating-label"><input type="radio" name="procrastinationImpact" value="3" required> 3</label>
+                        <label class="rating-label"><input type="radio" name="procrastinationImpact" value="4" required> 4</label>
+                        <label class="rating-label"><input type="radio" name="procrastinationImpact" value="5" required> 5</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="productivityImpact">How much does social media impact your productivity?</label>
+                    <div class="rating-scale">
+                        <label class="rating-label"><input type="radio" name="productivityImpact" value="0" required> 0</label>
+                        <label class="rating-label"><input type="radio" name="productivityImpact" value="1" required> 1</label>
+                        <label class="rating-label"><input type="radio" name="productivityImpact" value="2" required> 2</label>
+                        <label class="rating-label"><input type="radio" name="productivityImpact" value="3" required> 3</label>
+                        <label class="rating-label"><input type="radio" name="productivityImpact" value="4" required> 4</label>
+                        <label class="rating-label"><input type="radio" name="productivityImpact" value="5" required> 5</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Open-Ended Questions Section -->
+            <div class="question-section">
+                <h3>Open-Ended Questions</h3>
+                <div class="form-group">
+                    <label for="otherImpacts">What other impacts of social media have you experienced?</label>
+                    <textarea id="otherImpacts" name="otherImpacts" rows="4" placeholder="Describe any other impacts here..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="positiveAspects">What are some positive aspects of social media?</label>
+                    <textarea id="positiveAspects" name="positiveAspects" rows="4" placeholder="Describe any positive aspects here..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="suggestions">Do you have any suggestions for improving the impact of social media?</label>
+                    <textarea id="suggestions" name="suggestions" rows="4" placeholder="Share your suggestions here..."></textarea>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="submit-button">Submit Survey</button>
+        </form>
+    </div>
+
+    <script>
+        // Form Validation
+        function validateForm() {
+            // Add your custom validation logic here if needed
+            return true;
+        }
+    </script>
+</body>
+</html>
